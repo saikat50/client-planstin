@@ -7,9 +7,6 @@ use Illuminate\Routing\Controller as LaravelController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-//minifier
-use MatthiasMullie\Minify;
-
 //custom
 use Illuminate\Http\Request;
 use App\App;
@@ -20,11 +17,20 @@ class Controller extends LaravelController
 
     public $template;
     public $request;
-
+    public $route;
+    public $includes = [
+        'head' => 'includes.head',
+        'header' => 'includes.header',
+        'footer' => 'includes.footer',
+        'sidebar' => 'includes.sidebar',
+        'body' => 'includes.body',
+    ];
     public function __construct($mvc){
         $this->mvc = $mvc;
         $this->request = $mvc->request;
         $this->route = $mvc->route;
+
+        $this->includes = (object) $this->includes;
 
     	App::setRequest($mvc->request);
         App::setController($this);
@@ -32,9 +38,32 @@ class Controller extends LaravelController
         $this->setupParameters();
         $this->setupView();
 
+
+        $site_meta = [
+            'type' => 'website',
+            'site_name' => \Config::get('app.name'),
+            'description' => \Config::get('app.description'),
+            'title' => (
+                $this->route->controller != 'Main' 
+                    ? $this->route->controller . ' '
+                    : ''
+                )
+                . ucfirst($this->route->method)
+                . ' - ' 
+                . \Config::get('app.name'),
+            'image' => url('/') . \Config::get('app.logo'),
+        ];
+
+        $url = '/' . trim(str_replace( url('/'), '', url()->current() ), '/');
+
+        $this->view->current_url = $url;
+
+        \App\Utils\SocialMarkup::setSiteTags($site_meta);
+        
+
         $this->initialize();
     }
-    
+
     public function initialize(){ }
 
     public function setupParameters(){
@@ -55,13 +84,16 @@ class Controller extends LaravelController
         $this->post = (object) $post;
     }
     public function setupView(){
-        $this->view = (object) [];
+        $this->view = (object) [
+            'includes' => $this->includes,
+            'controller' => $this,
+        ];
     }
     public function view($path, $args = []){
         return view($path, $this->makeView($args));
     }
     public function makeView($args = []){
-        return array_merge( ['template' => $this->template, 'controller' => $this], (array) $this->view, $args);
+        return array_merge( (array) $this->view, $args);
     }
 
 }

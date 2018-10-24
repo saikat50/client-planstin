@@ -1,0 +1,225 @@
+
+.f-10 {
+    font-size: 1rem;
+  }
+  .f-12 {
+    font-size: 1.2rem;
+  }
+  .f-14 {
+    font-size: 1.4rem;
+  }
+  .f-15 {
+    font-size: 1.5rem;
+  }
+  .f-16 {
+    font-size: 1.6rem;
+  }
+  .f-18 {
+    font-size: 1.8rem;
+  }
+  .f-20 {
+    font-size: 2.0rem;
+  }
+  .f-22 {
+    font-size: 2.2rem;
+  }
+  .f-24 {
+    font-size: 2.4rem;
+  }
+  .f-26 {
+    font-size: 2.6rem;
+  }
+  .f-28 {
+    font-size: 2.8rem;
+  }
+  .f-30 {
+    font-size: 3rem;
+  }
+  .f-35 {
+    font-size: 3.5rem;
+  }
+  .f-40 {
+    font-size: 4rem;
+  }
+  .f-45 {
+    font-size: 4.5rem;
+  }
+  .f-50 {
+    font-size: 5rem;
+  }
+  .f-55 {
+    font-size: 5.5rem;
+  }
+  .f-60 {
+    font-size: 60rem;
+  }
+  .f-65 {
+    font-size: 6.5rem;
+  }
+  .f-75 {
+    font-size: 7.5rem;
+  }
+  
+  .font-md {
+    font-size: 1rem;
+  }
+  .font-sm {
+    font-size: 0.8rem;
+  }
+  .font-lg {
+    font-size: 1.5rem;
+  }
+  .font-xl {
+    font-size: 2.5rem;
+  }
+  
+  
+  .section {
+    padding: 50px 0;
+  }
+  .section-0 {
+    padding: 0;
+  }
+  .section-xs {
+    padding: 10px 0;
+  }
+  .section-sm {
+    padding: 25px 0;
+  }
+  .section-md {
+    padding: 65px 0;
+  }
+  .section-lg {
+    padding: 75px 0;
+  }
+  
+  /* Add here all your css styles (customizations) */
+  .hidden {
+    display: none !important;
+  }
+  @media (max-width: 575px)
+  {
+      .hidden-xs-down, .hidden-sm-down, .hidden-md-down, .hidden-lg-down, .hidden-xl-down,
+      .hidden-xs-up,
+      .hidden-unless-sm, .hidden-unless-md, .hidden-unless-lg, .hidden-unless-xl
+      {
+          display: none !important;
+      }
+  
+  }
+  
+  /* Breakpoint SM */
+  @media (min-width: 576px) and (max-width: 767px)
+  {
+      .hidden-sm-down, .hidden-md-down, .hidden-lg-down, .hidden-xl-down,
+      .hidden-xs-up, .hidden-sm-up,
+      .hidden-unless-xs, .hidden-unless-md, .hidden-unless-lg, .hidden-unless-xl
+      {
+          display: none !important;
+      }
+  }
+  
+  /* Breakpoint MD */
+  @media (min-width: 768px) and (max-width: 991px)
+  {
+      .hidden-md-down, .hidden-lg-down, .hidden-xl-down,
+      .hidden-xs-up, .hidden-sm-up, .hidden-md-up,
+      .hidden-unless-xs, .hidden-unless-sm, .hidden-unless-lg, .hidden-unless-xl
+      {
+          display: none !important;
+      }
+  }
+  
+  /* Breakpoint LG */
+  @media (min-width: 992px) and (max-width: 1199px)
+  {
+      .hidden-lg-down, .hidden-xl-down,
+      .hidden-xs-up, .hidden-sm-up, .hidden-md-up, .hidden-lg-up,
+      .hidden-unless-xs, .hidden-unless-sm, .hidden-unless-md, .hidden-unless-xl
+      {
+          display: none !important;
+      }
+  }
+  
+  /* Breakpoint XL */
+  @media (min-width: 1200px)
+  {
+      .hidden-xs-up, .hidden-sm-up, .hidden-md-up, .hidden-lg-up, .hidden-xl-up,
+      .hidden-unless-xs, .hidden-unless-sm, .hidden-unless-md, .hidden-unless-lg
+      {
+          display: none !important;
+      }
+  }
+  @media (min-width: 1200px) and (max-width: 1399px){
+    .hidden-xl-down {
+      display: none !important;
+    }
+  }
+  
+  @media(min-width: 1400px){
+    .hidden-unless-lg {
+      display: none !important;
+    }
+  }
+  
+  /* Extend width */
+  
+  @media (min-width: 576px) {
+    .w-sm-25{
+      width: 25% !important;
+    }
+    .w-sm-50 {
+      width: 50% !important;
+    }
+    .w-sm-75 {
+      width: 75% !important;
+    }
+    .w-sm-100 {
+      width: 100% !important;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .w-md-25{
+      width: 25% !important;
+    }
+    .w-md-50 {
+      width: 50% !important;
+    }
+    .w-md-75 {
+      width: 75% !important;
+    }
+    .w-md-100 {
+      width: 100% !important;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .w-lg-25{
+      width: 25% !important;
+    }
+    .w-lg-50 {
+      width: 50% !important;
+    }
+    .w-lg-75 {
+      width: 75% !important;
+    }
+    .w-lg-100 {
+      width: 100% !important;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .w-xl-25{
+      width: 25% !important;
+    }
+    .w-xl-50 {
+      width: 50% !important;
+    }
+    .w-xl-75 {
+      width: 75% !important;
+    }
+    .w-xl-100 {
+      width: 100% !important;
+    }
+  }
