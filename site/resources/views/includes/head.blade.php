@@ -11,13 +11,17 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- Style -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/bootstrap-patch.css">
+
 <link rel="stylesheet" href="/css/animate.css">
+<link rel="stylesheet" href="/css/style.css">
 
 <!-- Scripts --> 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery-extension.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>

@@ -46,9 +46,13 @@ class Controller extends LaravelController
             'title' => (
                 $this->route->controller != 'Main' 
                     ? $this->route->controller . ' '
-                    : ''
+                    : 'Home'
                 )
-                . ucfirst($this->route->method)
+                . (
+                    $this->route->method != 'home'
+                        ? ucfirst($this->route->method)
+                        : ''
+                )
                 . ' - ' 
                 . \Config::get('app.name'),
             'image' => url('/') . \Config::get('app.logo'),

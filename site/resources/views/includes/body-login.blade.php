@@ -6,13 +6,12 @@
 	@yield('head')
 	
 </head>
-<body class="body-main">
-	<div id="container">	
-		@include($includes->header)
-
-		@yield('content')
-
-		@include($includes->footer)	
+<body class="body-login">
+	<div id="container">    
+    
+        @yield('content')
+        
+        @include($includes->footer)
 	</div>
 </body>
 </html>
