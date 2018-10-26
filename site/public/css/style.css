@@ -70,10 +70,17 @@ body {
 }
 
 /* Main Body Layout Styling */
-.body-main {
-
+.body-main #container,
+.body-main #container > .d-flex {
+    min-height: 500px;
+    min-height: calc(100vh - 120px);
 }
 
+@media(min-width: 992px){
+    .body-main .sidebar {
+        width: 400px;
+    }
+}
 
 /* Login Body Layout Styling */
 .body-login footer .logo-wrapper {

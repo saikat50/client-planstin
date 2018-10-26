@@ -7,10 +7,17 @@
 	
 </head>
 <body class="body-main">
+	@include($includes->header)
 	<div id="container">	
-		@include($includes->header)
+		<div class="d-flex">
+			<div class="sidebar bg-gray-2 align-self-stretch">
+				@include($includes->sidebar)
+			</div>
+			<div class="content align-self-stretch">
+				@yield('content')
+			</div>
+		</div>
 
-		@yield('content')
 
 		@include($includes->footer)	
 	</div>
