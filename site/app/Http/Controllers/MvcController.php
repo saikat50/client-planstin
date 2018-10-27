@@ -27,26 +27,27 @@ class MvcController extends LaravelController {
             'uri' => $uri,
         ];
 
-        return $this->makeResponse($this->route->controller . '.' . $this->route->method);
+        return $this->makeResponse();
     }
     
     public function makeResponse(){
-        try {
-            $controllerClass = __NAMESPACE__ . '\\' . $this->route->controller;
+        
+        $controllerClass = __NAMESPACE__ . '\\' . $this->route->controller;
 
-            if( !class_exists( $controllerClass ) ){
-                return $this->error('Controller {'. $this->route->controller .'} not found.');
-            }
-            if(  !method_exists($controllerClass, $this->route->method) ){
-                return $this->error('{'. $this->route->controller .'} Controller has no method {'. $this->route->method .'}');
-            }
-
-            $controller = new $controllerClass($this);
-            return $controller->{$this->route->method}($this->route->id, $this->route->segments);
-
-        }catch(\Exception $e){
-            abort(404);
+        if( !class_exists( $controllerClass ) ){
+            return $this->error('Controller {'. $this->route->controller .'} not found.');
         }
+        if(  !method_exists($controllerClass, $this->route->method) ){
+            return $this->error('{'. $this->route->controller .'} Controller has no method {'. $this->route->method .'}');
+        }
+
+        $controller = new $controllerClass($this);
+        return $controller->{$this->route->method}($this->route->id, $this->route->segments);
+        
+    }
+
+    public function error($message){
+        return abort(404, $message);
     }
 
 

@@ -21,6 +21,9 @@
 
 		@include($includes->footer)	
 	</div>
+	<pre class="hidden session-token">
+		<?php print_r(session('token')); ?>
+	</pre>
 </body>
 </html>
 

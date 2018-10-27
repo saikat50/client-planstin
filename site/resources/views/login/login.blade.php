@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container">
+    @if( $errorMessage )
+        <div class="alert alert-danger">{{ $errorMessage }}</div>
+    @endif
+    @if( $successMessage )
+        <div class="alert alert-sucess">{{ $successMessage }}</div>
+    @endif
     <div class="row">
         <div class="col-12 col-lg-6">
 

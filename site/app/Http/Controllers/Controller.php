@@ -100,4 +100,7 @@ class Controller extends LaravelController
         return array_merge( (array) $this->view, $args);
     }
 
+    public function error($message){
+        return abort(404, $message);
+    }
 }
