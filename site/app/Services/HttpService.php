@@ -4,44 +4,25 @@ namespace App\Services;
 
 class HttpService {
 
-	public static function GET($url, $params = null){
-		$opts = array(
-			'http' => array(
-			    'method'  => 'GET',
-		    )
-		);
-
-		if($params){
+	public static function GET($url, $data = [], $params = []){
+		$params = array_merge(['post' => 0], $params);
+		if($data){
 			if(strpos($url, '?') === false){
 				$url .= '?';
 			}
 			$url .= http_build_query($params);
 		}
 
-		return self::exec($url, $opts);
-
+		return self::curl($url, $data, $params);
 	}
-	public static function POST($url, $data, $headers = array()){
-		$default_headers = array(
-	        'method'  => 'POST',
-	        'header'  => 'Content-type: application/x-www-form-urlencoded',
-	        'content' => http_build_query($data),
-	    );
-
-	    $headers = array_merge($default_headers, $headers);
-
-		$opts = array(
-			'http' => $headers,
-		);
-		
-		$res = self::exec($url, $opts);
-		
-		return $res;
+	public static function post($url, $data, $params = []){	
+		$params = array_merge(['post' => 1], $params);
+		return self::curl($url, $data, $params);
 	}
 
-	public static function CURL($url, $data, $params = []){
+	public static function curl($url, $data, $params = []){
 		$defaults = [
-			'post' => 1,
+			'post' => 0, //receive from self::post method
 			'return' => 1,
 			'user_agent' => false, //"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13",
 			'timeout' => 20,
@@ -53,6 +34,8 @@ class HttpService {
 		];
 		$params = array_merge($defaults, $params);
 
+		// dd($url, $params);
+		
 		$ch = curl_init();
 
 	    // set url
@@ -84,17 +67,5 @@ class HttpService {
 	    return [@json_decode($output, 1) ?: $output, $http_code];
 	}
 
-	public static function exec($url, $opts){
 
-		$context  = stream_context_create($opts);
-
-		try{
-			$result = file_get_contents($url, false, $context);
-			$json = \json_decode($result, 1);
-		}catch(\Exception $e){
-			return (object)['success' => false, 'message' => $e->getMessage()];
-		}
-		
-		return  (object)['success' => true,'response' => ($json ? $json : $result),'message' => ''];
-	}
 }

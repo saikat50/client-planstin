@@ -5,18 +5,64 @@ class Salesforce {
     var $client_id;
     var $client_secret;
     var $redirect_uri;
-    var $endpoint;
+    var $auth_endpoint;
     var $env;
+
+    var $instance_url;
+    var $version = '/services/data/v43.0';
+    var $user_id;
+    var $access_token;
 
     var $debug = false;
 
-    public function __construct(){
+    public function __construct($token = null){
         $this->env = \Config::get('app.salesforce.env');
 
         $this->client_id = \Config::get('app.salesforce.client_id');
         $this->client_secret = \Config::get('app.salesforce.client_secret');
         $this->redirect_uri = \Config::get('app.salesforce.redirect_uri');
-        $this->endpoint = \Config::get("app.salesforce.endpoints.{$this->env}");
+        $this->auth_endpoint = \Config::get("app.salesforce.endpoints.{$this->env}");
+        if($token){
+            $this->access_token = $token['access_token'];
+            $this->instance_url = $token['instance_url'];
+            $this->user_id = array_slice(explode('/id/', $token['id']), -1)[0];
+        }
+    }
+    public function apiUrl($method = ''){
+        return $this->instance_url . $this->version . '/' . ltrim($method, '/');
+    }
+    public function call($type, $auth, $url, $data = [], $params = []){
+        $type = $type == 'post' ? 'post' : 'get';
+        $params = array_merge(
+            [
+                'options' => [
+                    CURLOPT_HTTPHEADER => array_filter([
+                        $type == 'post' ? 'Content-type: application/x-www-form-urlencoded' : '',
+                        $auth == 'token' 
+                            ? 'Authorization: Bearer ' . $this->access_token
+                            : 'Authorization: Basic ' . base64_encode($this->client_id . ':' . $this->client_secret),
+                    ]),
+                ],
+            ],
+            $params
+        );
+
+        list($response, $http_code) = HttpService::$type($url, $data, $params);
+        return $response;
+    }
+
+    public function getVersions(){
+        $url = $this->instance_url . '/services/data/';
+
+        return $this->call('get', 'token', $url);
+    }
+    public function getResources(){
+        $url = $this->apiUrl();
+        return $this->call('get', 'token', $url);
+    }
+    public function getUser($user_id = null){
+        $url = $this->instance_url . '/id/' . ($user_id ?: $this->user_id);
+        return $this->call('get', 'token', $url);
     }
     public function getAuthUrl(){
         /**
@@ -26,7 +72,7 @@ class Salesforce {
          *      &redirect_uri=https%3A%2F%2Fwww.mysite.com%2Fcode_callback.jsp&state=mystate
          */
 
-        return $this->auth_usrl = "{$this->endpoint}/services/oauth2/authorize".
+        return $this->auth_usrl = "{$this->auth_endpoint}/services/oauth2/authorize".
             "?response_type=code".
             "&client_id={$this->client_id}".
             "&redirect_uri=". urlencode($this->redirect_uri);
@@ -48,16 +94,7 @@ class Salesforce {
             'code' => $code,
             'redirect_uri' => $this->redirect_uri,
         ];
-        $headers = [
-            'options' => [
-                CURLOPT_HTTPHEADER => [
-                    'Content-type: application/x-www-form-urlencoded',
-                    'Authorization: Basic ' . base64_encode($this->client_id . ':' . $this->client_secret),
-                ],
-            ],
-        ];
 
-        list($response, $http_code) =  HttpService::CURL("{$this->endpoint}/services/oauth2/token", $post, $headers);
-        return $response;
+        return $this->call('post', 'client', "{$this->auth_endpoint}/services/oauth2/token", $post);
     }
 }
