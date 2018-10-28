@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Services\Salesforce;
 
 class Oauth2 extends Controller {
-
+    public function initialize(){
+        
+    }
     public function request(){
         $salesforce = new Salesforce;
 

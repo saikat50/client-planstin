@@ -16,6 +16,24 @@ class MvcController extends LaravelController {
     public $template;
     public $request;
 
+    public function __construct(Request $request){
+        $path = $request->path();
+
+        $matches = [
+            '@^employee/?@',
+        ];
+        $matched = false;
+        foreach($matches as $match){
+            if( preg_match($match, $path) ){
+                $matched = true;
+                break;
+            }
+        }
+        if($matched){
+            $this->middleware('token');
+        }
+    }
+
     public function receive(Request $request, $controller = null, $method = null, $id = null, $uri = ''){
         $this->request = $request;
     	
@@ -26,6 +44,8 @@ class MvcController extends LaravelController {
             'segments' => array_filter(explode('/', $uri)),
             'uri' => $uri,
         ];
+
+        
 
         return $this->makeResponse();
     }
