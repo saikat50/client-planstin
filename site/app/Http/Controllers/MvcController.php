@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 //custom
 use Illuminate\Http\Request;
 use App\App;
+use \App\Exceptions\ControllerException;
 
 class MvcController extends LaravelController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -30,7 +31,10 @@ class MvcController extends LaravelController {
             }
         }
         if($matched){
-            $this->middleware('token');
+            /**
+             * Deactivate middleware so people can build pages
+             */
+            //$this->middleware('token');
         }
     }
 
@@ -61,8 +65,16 @@ class MvcController extends LaravelController {
             return $this->error('{'. $this->route->controller .'} Controller has no method {'. $this->route->method .'}');
         }
 
-        $controller = new $controllerClass($this);
-        return $controller->{$this->route->method}($this->route->id, $this->route->segments);
+        try {
+            $controller = new $controllerClass($this);
+            return $controller->{$this->route->method}($this->route->id, $this->route->segments);
+        }catch(ControllerException $e){
+            if($e->getCode() == 300){
+                return redirect('/login')->with(['error' => $e->getMessage()]);
+            }else{
+                return $this->error($e->getMessage());
+            }
+        }
         
     }
 

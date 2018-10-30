@@ -17,6 +17,8 @@ class BaseModel extends Model {
         foreach($attributes as $key => $val){
             $this->$key = $val;
         }
+
+        return $this;
     }
     public function setAndSave($attributes){
         $this->set($attributes);
@@ -41,7 +43,7 @@ class BaseModel extends Model {
         return [$model, ''];
     }
     public function setForCreate($attributes = []){
-        $this->set($attributes);
+        return $this->set($attributes);
     }
     public function validateCreate(){
         return [true, ''];

@@ -20,13 +20,14 @@ class Oauth2 extends Controller {
         
         $salesforce = new Salesforce;
 
-        $token = $salesforce->requestAccessToken( $this->request->get('code') );
-        
-        if(!empty($token['access_token'])){
-            session(['token' => $token]);
+        $tokenData = $salesforce->requestAccessToken( $this->request->get('code') );
+
+        if(!empty($tokenData['access_token'])){
+            \App\App::setSessionToken('salesforce', $tokenData);
+
             return redirect('/employee/dashboard')->with(['success' => 'Successfully logged in']);
         }
 
-        return redirect('/login')->with(['error' => 'Error authenticating: ' . $token['error_description']]);
+        return redirect('/login')->with(['error' => 'Error authenticating: ' . $tokenData['error_description']]);
     }
 }

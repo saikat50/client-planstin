@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 //custom
 use Illuminate\Http\Request;
 use App\App;
+use App\Exceptions\ControllerException;
 
 class Controller extends LaravelController
 {
@@ -100,7 +101,20 @@ class Controller extends LaravelController
         return array_merge( (array) $this->view, $args);
     }
 
-    public function error($message){
-        return abort(404, $message);
+    public function error($message, $code = 404){
+        throw new ControllerException($message, $code);
     }
+
+    public function authorize(){
+        $token = session('token');
+        if(!$token){
+            $token = session()->put('token', App::getSessionToken('salesforce'));
+        }
+        if($token && App::checkSessionToken(true)){
+            return true;
+        }else{
+            $this->error('Please Login to view page', 300);
+        }
+    }
+
 }
