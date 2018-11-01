@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Foundation\Application as IlluminateFoundationApplication;
+use App\Exceptions\SalesforceException;
 
 class App extends IlluminateFoundationApplication{
 	private static $request;
 	private static $controller;
+
+	private static $salesforce;
 
 	public function publicPath(){
         return $_SERVER['DOCUMENT_ROOT'];
@@ -44,23 +47,49 @@ class App extends IlluminateFoundationApplication{
 			->orderBy('created_at', 'dec')
 			->first();
 	}
-	public static function setSessionToken($type, $token = null){
-		
+
+	public static function authorizeAndSetToken(){
+		session()->forget([
+			'token',
+			'salesforce',
+		]);
+
+		$token = static::getSessionToken('salesforce');
+
+		if(!$token){
+			throw new \Exception('Invalid Site Credentials. Please contact support.');
+		}
+
+		$salesforce = static::salesforce($token);
+
+		if(!$salesforce->isAuthorized()){
+			throw new \Exception('Invalid Site Credentials.');
+		}
+
+		try {
+			$resources = $salesforce->getResources();
+		}catch(SalesforceException $e){
+			$refreshToken = $salesforce->refreshAccessToken($token->refresh);
+			$token->setAndSave(['token' => $refreshToken['access_token']]);
+		}
+
+		session()->put(['token' => $token, 'salesforce.resources' => $resources]);
+	}
+
+	public static function setSessionToken($type, $token = null){		
 		if(is_object($token) && !is_subclass_of($token, '\App\Models\Token')){
 			$token = (array) $token;
 		}
 
 		if(is_array($token)){
 			$existing = static::getSessionToken($type);
-
-			
+		
 			if($existing){
 				$token = $existing->setForCreate([
 					'type' => $type,
 					'data' => $token,
 				]);
 				$token->save();
-
 			}else{
 				list($token, $message) = \App\Models\Token::create([
 					'type' => $type,
@@ -77,7 +106,6 @@ class App extends IlluminateFoundationApplication{
 			$token = static::getSessionToken($type);
 		}
 
-
 		if($token && is_subclass_of($token, '\App\Models\BaseModel')){
 			session(['token' => $token]);
 		}else{
@@ -87,7 +115,7 @@ class App extends IlluminateFoundationApplication{
 		return $token;
 	}
 
-	public static function checkSessionToken($replace = false){
+	public static function checkSessionToken(){
 		$token = session('token');
 		if(!$token){
 			return false;
@@ -95,12 +123,26 @@ class App extends IlluminateFoundationApplication{
 
 		$latest = static::getSessionToken($token->type);
 
-		if( strtotime($latest->updated_at) > strtotime($token->updated_at) && !$replace){
+		if( strtotime($latest->updated_at) > strtotime($token->updated_at) ){
 			return false;
-		}else if($latest){
-			session(['token' => $token]);
 		}
 
 		return true;
 	}
+
+	public static function salesforce($token = null){
+		if(static::$salesforce){
+			return static::$salesforce;
+		}
+		return new \App\Services\Salesforce( $token ?: session('token') );
+	}
+
+	public static function redirectToLogin(){
+        return redirect('/login/' . (session('user.level') ?: 'member') );
+	}
+	
+	public static function redirectToDashboard(){
+		return redirect(('/' . session('user.level') ?: 'member') . '/dashboard');
+	}
+	
 }

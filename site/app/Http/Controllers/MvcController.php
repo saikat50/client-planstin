@@ -70,7 +70,7 @@ class MvcController extends LaravelController {
             return $controller->{$this->route->method}($this->route->id, $this->route->segments);
         }catch(ControllerException $e){
             if($e->getCode() == 300){
-                return redirect('/login')->with(['error' => $e->getMessage()]);
+                return \App\App::redirectToLogin()->with(['error' => $e->getMessage()]);
             }else{
                 return $this->error($e->getMessage());
             }

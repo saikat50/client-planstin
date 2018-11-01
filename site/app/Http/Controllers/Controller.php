@@ -104,16 +104,16 @@ class Controller extends LaravelController
     public function error($message, $code = 404){
         throw new ControllerException($message, $code);
     }
-
-    public function authorize(){
-        $token = session('token');
-        if(!$token){
-            $token = session()->put('token', App::getSessionToken('salesforce'));
-        }
-        if($token && App::checkSessionToken(true)){
-            return true;
-        }else{
-            $this->error('Please Login to view page', 300);
+    
+    public function authorizeToken(){ 
+        if(!App::checkSessionToken()){
+            try{
+                App::authorizeAndSetToken();
+            }catch(\Exception $e){
+                if( !session('error') ){
+                    throw new ControllerException('Site Currently Unavailable. Please try again later', 300);
+                }
+            }
         }
     }
 

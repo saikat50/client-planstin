@@ -25,9 +25,9 @@ class Oauth2 extends Controller {
         if(!empty($tokenData['access_token'])){
             \App\App::setSessionToken('salesforce', $tokenData);
 
-            return redirect('/employee/dashboard')->with(['success' => 'Successfully logged in']);
+            return \App\App::redirectToDashboard()->with(['success' => 'Successfully logged in']);
         }
 
-        return redirect('/login')->with(['error' => 'Error authenticating: ' . $tokenData['error_description']]);
+        return \App\App::redirectToLogin()->with(['error' => 'Error authenticating: ' . $tokenData['error_description']]);
     }
 }

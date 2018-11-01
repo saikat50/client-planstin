@@ -1,6 +1,8 @@
 <?php 
 namespace App\Services;
 
+use App\Exceptions\SalesforceException;
+
 class Salesforce { 
     var $client_id;
     var $client_secret;
@@ -22,11 +24,15 @@ class Salesforce {
         $this->client_secret = \Config::get('app.salesforce.client_secret');
         $this->redirect_uri = \Config::get('app.salesforce.redirect_uri');
         $this->auth_endpoint = \Config::get("app.salesforce.endpoints.{$this->env}");
+    
         if($token){
             $this->access_token = $token->token;
             $this->instance_url = $token->data['instance_url'];
             $this->user_id = array_slice(explode('/id/', $token->data['id']), -1)[0];
         }
+    }
+    public function isAuthorized(){
+        return !!$this->access_token;
     }
     public function apiUrl($method = ''){
         return $this->instance_url . $this->version . '/' . ltrim($method, '/');
@@ -46,8 +52,13 @@ class Salesforce {
             ],
             $params
         );
-
+        
         list($response, $http_code) = HttpService::$type($url, $data, $params);
+        
+        if($http_code >= 400){
+            throw new SalesforceException( is_array($response) ? $response[0]['message'] : $response, $http_code );
+        }
+
         return $response;
     }
 
@@ -78,6 +89,22 @@ class Salesforce {
             "&redirect_uri=". urlencode($this->redirect_uri);
     }
 
+    public function refreshAccessToken($refresh){
+        /**
+         * POST /services/oath2/token HTTP/1.1
+         * Host: login.salesforce.com
+         * Authorization:  Basic client_id=3MVG9lKcPoNINVBIPJjdw1J9LLM82HnFVVX19KY1uA5mu0QqEWhqKpoW3svG3XHrXDiCQjK1mdgAvhCscA9GE&client_secret=1955279925675241571
+         * grant_type=refresh_token&refresh_token=your token here 
+         */
+
+        $post = [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $refresh,
+        ];
+
+        return $this->call('post', 'client', "$this->auth_endpoint/services/oauth2/token", $post);
+        
+    }
     public function requestAccessToken($code){
         /**
          *  POST /services/oauth2/token HTTP/1.1
