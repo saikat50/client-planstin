@@ -29,4 +29,5 @@ class Login extends Controller {
         session()->forget('token');
         return \App\App::redirectToLogin()->with(['success' => 'Logout successful']);
     }
+
 }

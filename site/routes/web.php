@@ -11,4 +11,6 @@
 |
 */
 
+
 Route::get('{controller?}/{method?}/{id?}', 'MvcController@receive');
+
