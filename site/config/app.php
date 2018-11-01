@@ -3,9 +3,9 @@
 return [
 
     'salesforce' => [
-        'env' => env('SF_ENV', 'production'), //sandbox
-        'client_id' => env('SF_CLIENT_ID', '3MVG9zlTNB8o8BA3azlHWOp.L29obP56SREwyrDIPEVkhkOQ.ZRPidIXDk9jdR1oo37kh6eBY9CSdeHrTFJmj'),
-        'client_secret' => env('SF_CLIENT_SECRET', '3752892029325867251'),
+        'env' => env('SF_ENV', 'sandbox'), //sandbox
+        'client_id' => env('SF_CLIENT_ID', '3MVG9dKFWsESbpkFwS8hOIy6D6EZJOtQj3Txvkh_p7hA.UpOZc5V_jHbRGq0JPQXQsX0Zo6_mNQWNhir2EQAs'),
+        'client_secret' => env('SF_CLIENT_SECRET', '3365720014145597268'),
         'redirect_uri' => env('SF_REDIRECT_URI', 'https://planstin.test/oauth2/success'),
         'endpoints' => [
             'production' => 'https://login.salesforce.com',

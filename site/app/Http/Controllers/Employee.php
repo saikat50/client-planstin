@@ -10,7 +10,7 @@ class Employee extends Controller {
         $salesforce = new \App\Services\Salesforce(session('token'));
 
         $this->view->user = $salesforce->getUser();
-        
+
         return $this->view('employee.dashboard');
     }
 }

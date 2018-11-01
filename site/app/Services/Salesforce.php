@@ -23,9 +23,9 @@ class Salesforce {
         $this->redirect_uri = \Config::get('app.salesforce.redirect_uri');
         $this->auth_endpoint = \Config::get("app.salesforce.endpoints.{$this->env}");
         if($token){
-            $this->access_token = $token['access_token'];
-            $this->instance_url = $token['instance_url'];
-            $this->user_id = array_slice(explode('/id/', $token['id']), -1)[0];
+            $this->access_token = $token->token;
+            $this->instance_url = $token->data['instance_url'];
+            $this->user_id = array_slice(explode('/id/', $token->data['id']), -1)[0];
         }
     }
     public function apiUrl($method = ''){
