@@ -12,17 +12,25 @@
 */
 
 
-Route::get('/login', function (){
+Route::get('/login', function(){
 
     return view('login.login');
 
 });
 
 Route::get('/forgot-password', function (){
-
     return view('login.forgot-password');
-
 });
+
+Route::get('/recovery', function (){
+    return view('login.recovery-code');
+});
+
+Route::get('/register', function (){
+    return view('login.register');
+});
+
+
 
 
 Route::get('{controller?}/{method?}/{id?}', 'MvcController@receive');
