@@ -38,12 +38,16 @@ class Salesforce {
         return $this->instance_url . $this->version . '/' . ltrim($method, '/');
     }
     public function call($type, $auth, $url, $data = [], $params = []){
-        $type = $type == 'post' ? 'post' : 'get';
+        $contentType = $type == 'post' ? 'Content-type: application/x-www-form-urlencoded' : '';
+
+        if(!empty($params['json'])){
+            $contentType = 'Content-type: application/json';
+        }
         $params = array_merge(
             [
                 'options' => [
                     CURLOPT_HTTPHEADER => array_filter([
-                        $type == 'post' ? 'Content-type: application/x-www-form-urlencoded' : '',
+                        $contentType,
                         $auth == 'token' 
                             ? 'Authorization: Bearer ' . $this->access_token
                             : 'Authorization: Basic ' . base64_encode($this->client_id . ':' . $this->client_secret),
@@ -69,6 +73,10 @@ class Salesforce {
     }
     public function getResources(){
         $url = $this->apiUrl();
+        return $this->call('get', 'token', $url);
+    }
+    public function getSobjects(){
+        $url = $this->apiUrl('sobjects/');
         return $this->call('get', 'token', $url);
     }
     public function getUser($user_id = null){
