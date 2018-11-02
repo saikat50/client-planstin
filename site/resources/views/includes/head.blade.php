@@ -2,13 +2,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 {{--<title>{{\App\Utils\SocialMarkup::$registered_tags['title'][0]}}</title>--}}
-{{--<?php if(!empty(\App\Utils\SocialMarkup::$registered_tags['description'])){ ?>--}}
-	{{--<meta name="description" content="{{\App\Utils\SocialMarkup::$registered_tags['description'][0]}}">--}}
-{{--<?php } ?>--}}
-{{--<?php echo \App\Utils\SocialMarkup::makeRegisteredTags(); ?>--}}
-{{--<link rel='alternate' href='{{url()->current()}}' hreflang="{{\Config::get('app.hreflang')}}">--}}
-{{--<link rel="canonical" href="{{ url()->current() }}"/>--}}
-{{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+<?php if(!empty(\App\Utils\SocialMarkup::$registered_tags['description'])){ ?>
+	<meta name="description" content="{{\App\Utils\SocialMarkup::$registered_tags['description'][0]}}">
+<?php } ?>
+<?php echo \App\Utils\SocialMarkup::makeRegisteredTags(); ?>
+<link rel='alternate' href='{{url()->current()}}' hreflang="{{\Config::get('app.hreflang')}}">
+<link rel="canonical" href="{{ url()->current() }}"/>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- Style -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">

@@ -2,7 +2,7 @@
 <html lang="{{\App::getLocale()}}" class="no-js">
 <head prefix="{{\App\Utils\SocialMarkup::makeRegisteredPrefixes()}}">
 
-    @extends('includes.head')
+    @include('includes.head')
 
 </head>
 <body>
