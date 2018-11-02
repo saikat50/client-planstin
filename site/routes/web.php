@@ -18,6 +18,12 @@ Route::get('/login', function (){
 
 });
 
+Route::get('/forgot-password', function (){
+
+    return view('login.forgot-password');
+
+});
+
 
 Route::get('{controller?}/{method?}/{id?}', 'MvcController@receive');
 

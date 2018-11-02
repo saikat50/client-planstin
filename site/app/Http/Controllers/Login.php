@@ -30,4 +30,8 @@ class Login extends Controller {
         return \App\App::redirectToLogin()->with(['success' => 'Logout successful']);
     }
 
+    public function forgot_pass(){
+        return $this->view('login.recovery-code');
+    }
+
 }
