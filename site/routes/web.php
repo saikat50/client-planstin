@@ -12,5 +12,12 @@
 */
 
 
+Route::get('/login', function (){
+
+    return view('login.login');
+
+});
+
+
 Route::get('{controller?}/{method?}/{id?}', 'MvcController@receive');
 
