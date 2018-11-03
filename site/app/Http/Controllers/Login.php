@@ -29,4 +29,9 @@ class Login extends Controller {
         session()->forget('token');
         return \App\App::redirectToLogin()->with(['success' => 'Logout successful']);
     }
+
+    public function forgot_pass(){
+        return $this->view('login.recovery-code');
+    }
+
 }

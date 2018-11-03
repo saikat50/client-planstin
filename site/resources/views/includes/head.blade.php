@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>{{\App\Utils\SocialMarkup::$registered_tags['title'][0]}}</title>
+{{--<title>{{\App\Utils\SocialMarkup::$registered_tags['title'][0]}}</title>--}}
 <?php if(!empty(\App\Utils\SocialMarkup::$registered_tags['description'])){ ?>
 	<meta name="description" content="{{\App\Utils\SocialMarkup::$registered_tags['description'][0]}}">
 <?php } ?>
@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="/css/bootstrap-patch.css">
 
 <link rel="stylesheet" href="/css/animate.css">
+<link rel="stylesheet" href="skins/flat/_all.css">
 <link rel="stylesheet" href="/css/style.css">
 
 <!-- Scripts --> 
@@ -25,3 +26,13 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/popper.min.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>
+<script src="js/icheck.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass: 'iradio_flat-red'
+        });
+    });
+</script>
