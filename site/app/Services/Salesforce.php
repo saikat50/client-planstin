@@ -31,7 +31,7 @@ class Salesforce {
             $this->user_id = array_slice(explode('/id/', $token->data['id']), -1)[0];
         }
     }
-    public function isAuthorized(){
+    public function hasToken(){
         return !!$this->access_token;
     }
     public function apiUrl($method = ''){
