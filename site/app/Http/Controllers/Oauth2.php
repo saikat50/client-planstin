@@ -23,7 +23,7 @@ class Oauth2 extends Controller {
         $tokenData = $salesforce->requestAccessToken( $this->request->get('code') );
 
         if(!empty($tokenData['access_token'])){
-            \App\App::setSessionToken('salesforce', $tokenData);
+            \App\App::saveSessionToken('salesforce', $tokenData);
 
             return \App\App::redirectToDashboard()->with(['success' => 'Successfully logged in']);
         }

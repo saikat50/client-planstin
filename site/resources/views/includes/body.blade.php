@@ -22,7 +22,7 @@
 		@include($includes->footer)	
 	</div>
 	<pre class="hidden session-token">
-		<?php $token = session('token'); print_r($token ? $token->toArray() : 'no token'); ?>
+		<?php print_r(session('token')); ?>
         <?php print_r(session('salesforce.resources')); ?>
 	</pre>
 </body>

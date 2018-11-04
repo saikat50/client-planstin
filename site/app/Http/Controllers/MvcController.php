@@ -38,13 +38,18 @@ class MvcController extends LaravelController {
         }
     }
 
-    public function receive(Request $request, $controller = null, $method = null, $id = null, $uri = ''){
+    public function receive(Request $request, $controller = null, $method = null, $uri = ''){
         $this->request = $request;
-    	
+        
+        $toCamelCase = function($str){
+            $arr = explode('-', $str);
+            $arr = array_map(function($v){ return ucfirst($v); }, $arr);
+            return implode('', $arr);
+        };
+
         $this->route = (object) [
             'controller' => ucfirst($controller ?: 'main'),
-            'method' => $method ?: 'home',
-            'id' => $id,
+            'method' => $toCamelCase($method) ?: 'home',
             'segments' => array_filter(explode('/', $uri)),
             'uri' => $uri,
         ];
@@ -67,7 +72,7 @@ class MvcController extends LaravelController {
 
         try {
             $controller = new $controllerClass($this);
-            return $controller->{$this->route->method}($this->route->id, $this->route->segments);
+            return call_user_func_array([$controller, $this->route->method], $this->route->segments);
         }catch(ControllerException $e){
             if($e->getCode() == 300){
                 return \App\App::redirectToLogin()->with(['error' => $e->getMessage()]);

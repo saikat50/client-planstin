@@ -15,7 +15,7 @@
 
     <pre class="hidden session-token">
         <?php echo 'level = ' . session('user.level') . "\n"; ?>
-        <?php $token = session('token'); print_r($token ? $token->toArray() : 'no token'); ?>
+        <?php print_r(session('token')); ?>
         <?php print_r(session('salesforce.resources')); ?>
 	</pre>
 </body>

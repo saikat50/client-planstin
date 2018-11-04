@@ -10,6 +10,7 @@ class App extends IlluminateFoundationApplication{
 	private static $controller;
 
 	private static $salesforce;
+	private static $token;
 
 	public function publicPath(){
         return $_SERVER['DOCUMENT_ROOT'];
@@ -37,6 +38,19 @@ class App extends IlluminateFoundationApplication{
 		}
 	}
 
+	public static function setToken($token){
+		session()->put('token',  (object) [
+			'id_token' => $token->id_token,
+			'updated_at' => $token->updated_at,
+			'type' => $token->type,
+		]);
+		static::$token = $token;
+
+		static::salesforce($token);
+	}
+	public static function token(){
+		return static::$token;
+	}
 
 	public static function getSessionToken($type){
 		return \App\Models\Token::where([
@@ -48,13 +62,15 @@ class App extends IlluminateFoundationApplication{
 			->first();
 	}
 
-	public static function authorizeAndSetToken(){
+	public static function authorizeAndSetToken($token = null){
 		session()->forget([
 			'token',
 			'salesforce',
 		]);
 
-		$token = static::getSessionToken('salesforce');
+		if(!$token){
+			$token = static::getSessionToken('salesforce');
+		}
 
 		if(!$token){
 			throw new \Exception('Invalid Site Credentials. Please contact support.');
@@ -62,79 +78,61 @@ class App extends IlluminateFoundationApplication{
 
 		$salesforce = static::salesforce($token);
 
-		if(!$salesforce->isAuthorized()){
-			throw new \Exception('Invalid Site Credentials.');
-		}
+		$refreshToken = $salesforce->refreshAccessToken($token->refresh);
+		$token->setAndSave(['token' => $refreshToken['access_token']]);
 
-		try {
-			$resources = $salesforce->getResources();
-		}catch(SalesforceException $e){
-			$refreshToken = $salesforce->refreshAccessToken($token->refresh);
-			$token->setAndSave(['token' => $refreshToken['access_token']]);
-		}
+		static::setToken($token);
 
-		session()->put(['token' => $token, 'salesforce.resources' => $resources]);
-	}
-
-	public static function setSessionToken($type, $token = null){		
-		if(is_object($token) && !is_subclass_of($token, '\App\Models\Token')){
-			$token = (array) $token;
-		}
-
-		if(is_array($token)){
-			$existing = static::getSessionToken($type);
-		
-			if($existing){
-				$token = $existing->setForCreate([
-					'type' => $type,
-					'data' => $token,
-				]);
-				$token->save();
-			}else{
-				list($token, $message) = \App\Models\Token::create([
-					'type' => $type,
-					'data' => $token,
-				]);
-
-				if(!$token){
-					throw new \Exception($message);
-				}
-			}
-		}
-
-		if(!$token){		
-			$token = static::getSessionToken($type);
-		}
-
-		if($token && is_subclass_of($token, '\App\Models\BaseModel')){
-			session(['token' => $token]);
-		}else{
-			throw new \Exception('Session token not found');
-		}
-
-		return $token;
 	}
 
 	public static function checkSessionToken(){
-		$token = session('token');
-		if(!$token){
+		$tokenInfo = session('token');
+		if(!$tokenInfo){
 			return false;
 		}
 
-		$latest = static::getSessionToken($token->type);
+		$latest = static::getSessionToken($tokenInfo->type);
 
-		if( strtotime($latest->updated_at) > strtotime($token->updated_at) ){
-			return false;
+		if( \strtotime($latest->updated_at) > \strtotime($tokenInfo->updated_at) || !static::token()){
+			static::setToken($latest);
+		}
+		
+		if(strtotime( static::token()->updated_at) < time() - 3600 ){
+			static::authorizeAndSetToken($latest);
 		}
 
 		return true;
 	}
 
+	public static function saveSessionToken($type, $token){		
+		
+		$existing = static::getSessionToken($type);
+		
+		if($existing){
+			$token = $existing->setForCreate([
+				'type' => $type,
+				'data' => $token,
+			]);
+			$token->save();
+		}else{
+			list($token, $message) = \App\Models\Token::create([
+				'type' => $type,
+				'data' => $token,
+			]);
+
+			if(!$token){
+				throw new \Exception($message);
+			}
+		}
+
+		return $token;
+	}
 	public static function salesforce($token = null){
-		if(static::$salesforce){
+		if(static::$salesforce && !$token){
 			return static::$salesforce;
 		}
-		return new \App\Services\Salesforce( $token ?: session('token') );
+
+		return static::$salesforce = new \App\Services\Salesforce( $token );
 	}
 
 	public static function redirectToLogin(){
