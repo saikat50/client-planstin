@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <!-- forgot pass body content -->
+    <!-- recovery body content -->
     <section class="login-body">
-        <div class="container login-container">
-            <div class="row">
+        <div class="container">
+            <div class="row login-container">
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <img class="img-fluid banner-img" src="{{ asset('images/AdobeStock_6423841.png') }}" alt="banner-img">
+                    <img class="img-fluid banner-img" src="{{asset('images/AdobeStock_6423841.png')}}" alt="banner-img">
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <form class="login-field">
@@ -24,7 +24,9 @@
             </div>
         </div>
     </section>
-    <!-- forgot pass content end-->
+    <div class="push"></div>
+    </div>
+    <!-- recovery body content end-->
 
 
 
