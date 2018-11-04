@@ -17,7 +17,8 @@
 <link rel="stylesheet" href="/css/bootstrap-patch.css">
 
 <link rel="stylesheet" href="/css/animate.css">
-<link rel="stylesheet" href="skins/flat/_all.css">
+<link rel="stylesheet" href="{{asset('skins/flat/_all.css')}}">
+<link rel="stylesheet" href="/css/faq.css">
 <link rel="stylesheet" href="/css/style.css">
 
 <!-- Scripts --> 
@@ -26,13 +27,21 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/popper.min.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>
-<script src="js/icheck.js"></script>
-
+<script type="text/javascript" src="{{asset('js/icheck.js')}}"></script>
+<script type="text/javascript" src="/js/faq.js"></script>
 <script>
     $(document).ready(function(){
         $('input').iCheck({
             checkboxClass: 'icheckbox_flat-red',
             radioClass: 'iradio_flat-red'
+        });
+    });
+</script>
+<script>
+    $(function(){
+        $("#upload_link").on('click', function(e){
+            e.preventDefault();
+            $("#upload:hidden").trigger('click');
         });
     });
 </script>

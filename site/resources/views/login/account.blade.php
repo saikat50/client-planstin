@@ -4,8 +4,8 @@
 
     <!-- login body content -->
     <section class="login-body">
-        <div class="container login-container">
-            <div class="row">
+        <div class="container">
+            <div class="row login-container">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <img class="img-fluid banner-img" src="{{asset('images/AdobeStock_6423841.png')}}" alt="banner-img">
                 </div>
@@ -28,15 +28,17 @@
                             <small class="form-text text-muted text-red text-right">Wrong username Or password</small>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block btn-submit bg-red text-white">sign in</button>
-                        <p class="forgot-pass no-mgr-bottom text-black">Forgot password or username? <a class="text-red" href="/forgot-password">Click Here</a></p>
-                        <p class="forgot-pass no-mgr-top text-black">Don't have account yet? <a class="text-red" href="#">Register</a></p>
+                        <p class="forgot-pass no-mgr-bottom text-black">Forgot password or username? <a class="text-red" href="forgotPassword/account">Click Here</a></p>
+                        <p class="forgot-pass no-mgr-top text-black">Don't have account yet? <a class="text-red" href="register/account">Register</a></p>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    <!-- login body content end-->
 
+    <div class="push"></div>
+    </div>
+    <!-- login body content end-->
 
 
     @endsection

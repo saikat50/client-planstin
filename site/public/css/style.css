@@ -66,15 +66,14 @@
 }
 
 .bg-sidebar{
-    background: #A3A3A3;
+    background: #cbcbcb;
 }
 
 /* General Layout Styling */
 body {
     font-family: Roboto;
     font-weight: 400;
-    margin: 0;
-    padding: 0;
+    background: #fff!important;
 }
 
 /* Main Body Layout Styling */
@@ -148,6 +147,15 @@ body {
     font-family: Roboto-r;
     src:url(../fonts/Roboto/Roboto-Regular.ttf);
 }
+@font-face {
+    font-family: Roboto-m;
+    src:url(../fonts/Roboto/Roboto-Medium.ttf);
+}
+
+@font-face {
+    font-family: Roboto-b;
+    src:url(../fonts/Roboto/Roboto-Bold.ttf);
+}
 
 @font-face {
     font-family: Roboto-l;
@@ -178,6 +186,11 @@ body {
     src:url(../fonts/Gotham/GothamBold.ttf);
 }
 
+@font-face {
+    font-family: Gotham-m;
+    src:url(../fonts/Gotham/GothamMedium.ttf);
+}
+
 
 
 
@@ -192,11 +205,11 @@ body {
     max-width: 230px;
 }
 .navbar-collapse {
-    flex-grow: 0!important;
+    /*! flex-grow: 0!important; */
 }
 /*Login body*/
 .login-container{
-    max-width: 900px!important;
+    max-width: 771px !important;
     margin-top: 40px;
 }
 .cmpny-text{
@@ -229,8 +242,9 @@ body {
 .forgot-pass{
     font-family: BasicSans-l;
     font-size: 17px;
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
+    margin-left: 15px;
 }
 .text-muted{
     font-size: 14px;
@@ -245,10 +259,30 @@ body {
     text-align: center;
 }
 footer{
-    margin-top: 30px;
+    width: 100%;
     padding-top: 13px;
     padding-bottom: 13px;
 }
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  min-height: 100%;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -50px;
+}
+
+.push {
+  height: 100px;
+}
+
+
+
 .navbar-toggler{
     background: #fff;
 }
@@ -297,13 +331,16 @@ footer{
 .border-btm{
     position: relative;
 }
+.border-btm .navbar-collapse {
+    flex-grow: 0 !important;
+}
 .border-btm::after{
     position: absolute;
     bottom: 1px;
     left: 14px;
     width: 97%;
-    height: 3px;
-    background: #707070;
+    height: 4px;
+    background: #b6b6b6;
     content: '';
 }
 .fa-home, .fa-sign-out{
@@ -340,14 +377,17 @@ footer{
 .up-img{
     font-family: Roboto-r;
     font-size: 16px;
+    color: #95989A;
 }
 .img-upload{
-    border: 1px solid #95989A;
+    border: 1px solid #d4d4d4;
     width: 150px;
-    height: 130px;
+    height: 150px;
     margin: 0 auto;
     display: block;
     margin-top: 10px;
+    position: relative;
+    overflow: hidden;
 }
 .b-addr{
     margin-bottom: 40px;
@@ -457,7 +497,9 @@ footer{
     list-style: none;
     border-bottom: 1px solid #707070;
 }
-
+.plans li{
+    
+}
 .plan-check{
     margin-top: -5px;
 }
@@ -544,17 +586,22 @@ footer{
 /*sidebar*/
 .sidebar{
     padding: 10px 10px;
-    height: 700px;
+    height: 500px;
 }
 .sidebar .profile-img{
-    margin: 0 auto;
-    display: block;
-    margin-bottom: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 139px;
+    transform: translate(-50%,-50%);
+   
 }
 .edit-pro{
-    font-size: 18px;
+    font-size: 15px;
     font-family: BasicSans-l;
     font-weight: bold;
+    margin-top: 40px;
+    display: block;
 }
 .edit-pro span{
     margin-left: 10px;
@@ -575,9 +622,10 @@ footer{
 /*sidebar right body*/
 .side-bra-smi-h3{
     color: #080808;
-    font-family: bahnschrift-r;
-    font-size: 32px;
+    font-family: SEGOEUI-r;
+    font-size: 24px;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 .disply-inline{
     display: inline;
@@ -607,10 +655,8 @@ footer{
 }
 
 .go-srtp-3{
-    border: 1px solid #707070;
     padding-left: 40px;
     padding-right: 40px;
-    box-shadow: 0px 0px 6px #888;
 }
 .ok-icon{
     display: block;
@@ -635,7 +681,9 @@ footer{
     margin-top: 40px;
     margin-bottom: 40px;
 }
-
+.seo-p{
+    font-family: ;
+}
 .add-more-btn{
     cursor: pointer;
     font-family: BasicSans-l;
@@ -659,7 +707,7 @@ footer{
 .emp-name{
     font-family: sfui-r;
     font-size: 22px;
-    color: #555759;
+    color: #5e6164;
     margin-bottom: 0px;
 }
 .emp-email{
@@ -668,21 +716,20 @@ footer{
     font-size: 14px;
 }
 .well-done-text{
-    float: left;
-    text-align: left;
-    font-size: 24px;
-    margin-left: 20px;
-    line-height: 29px;
+    text-align: center;
+    font-size: 32px;
+    line-height: 38px;
+    margin-top: 0;
 }
 .well-done-step{
     padding-left: 0px;
     padding-right: 0px;
-    padding-top: 80px;
+    padding-top: 22px;
     padding-bottom: 80px;
 }
 .well-done-img{
-    float: left;
-    margin-left: 20px;
+   display: block;
+    margin: 0 auto;
 }
 
 /*dashboard*/
@@ -724,8 +771,485 @@ background-image: linear-gradient(to bottom, #E5E4E4 0%, #C7C7C7 100%);
 .mgrt-3{
     margin-top: 70px;
 }
+.pro-img-container{
+    background: #e4e4e4;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.img-cir{
+    text-align: center;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+
+}
+.p-name{
+    font-family: Raleway-semi;
+    color: #080808;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.p-title{
+    font-family: BasicSans-l;;
+    font-weight: normal;
+    font-size: 14px;
+    color: #2779ff;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.company-table{
+    margin-top: 40px;
+    border: 0;
+    max-width: 600px;
+}
+.company-table td{
+    border-right: 0;
+    padding: 0;
+    padding-top: 20px;
+}
+.company-table th{
+    border-left: 0px;
+    padding: 0;
+    padding-top: 20px;
+}
+.company-title{
+    font-family: SEGOEUI-r;
+    font-size: 14px;
+    color: #000;
+    font-weight: normal;
+    margin-bottom: 0px;
+}
+
+.company-detail{
+    font-family: SEGOEUI-r;
+    font-size: 13px;
+    color: #818181;
+    font-weight: normal;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+.benefit-head{
+    font-family: SEGOEUI-r;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 0;
+    margin-top: 5px; 
+}
+
+.benefit-detial{
+    text-align: left;
+    font-size: 14px;
+   
+}
+.benefit-table{
+    margin-top: 20px;
+    max-width: 600px;
+    border: 0;
+}
+.benefit-table th{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+.benefit-table tr td:first-child{
+    border-left: 0;
+}
+.benefit-table tr td:last-child{
+    border-right: 0;
+}
+.benefit-table tr td{
+    padding-bottom: 30px;
+}
+.benefit-mgr{
+    margin-bottom: 30px;
+}
+.footer-btm{
+    margin-bottom: 60px;
+}
+.emp-pic .img-cir img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    transform: translate(-50%,-50%);
+}
+.emp-pic .img-cir{
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+.emp-pic{
+    float: left;
+    margin-right: 10px;
+    width: 20%;
+}
+.emp-table .benefit-head{
+    font-size: 16px;
+    font-weight: bold;
+    color: #818181;
+}
+.emp-n-name{
+    font-family: SEGOEUI-r;
+    font-size: 15px;
+    margin-bottom: 0px;
+    margin-top: 7px;
+}
+.emp-email-m{
+    word-break: break-all;
+    margin-left: 0;
+    line-height: 15px;
+}
+.emp-detail-r{
+    float: left;
+    width: 75%;
+}
+
+
+.emp-table tr td{
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.emp-col{
+    line-height: 18px;
+    margin-top: 5px;
+}
+
+.emp-table td{
+    border-left: 0;
+    border-right: 0;
+}
+.emp-delete{
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: #818181;
+    margin-left: 12px;
+    float: left;
+    outline: 0;
+}
+.emp-edit{
+     background: none;
+    border: 0;
+    cursor: pointer;
+    color: #818181;
+    margin-left: 20px;
+    float: left;
+    outline: 0;
+    margin-top: 1px;
+}
+
+.emp-delete:hover{
+    color: #E50D0D;
+}
+.emp-edit:hover{
+    color: #000;
+}
+
+
+.billing .card{
+     margin-top: 20px;
+    color: #fff;
+}
+.footer-mgr{
+    margin-bottom: 60px;
+}
+
+.b-plans li{
+    list-style: none;
+    font-family: Roboto-r;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.bill-amount{
+    font-family: Roboto-b;
+    text-align: center;
+}
+.bill-date{
+    font-family: Roboto-r;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.bill-pay{
+    font-family: Roboto-l;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: #fff;
+    color: #080808;
+    border: 0;
+    border-color: none;
+    box-shadow: 32px 30px 114px #000;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.pay-process{
+    margin-top: 30px;
+}
+.billing .card{
+    min-height: 192px;
+    overflow: hidden;
+}
+.pay-process-2{
+    margin-top: 54px;
+}
+.invoice-icon{
+    width: 40px;
+    margin-right: 10px;
+}
+.invoice-list{
+    margin: 0;
+    padding: 0;
+    margin-top: 40px;
+}
+
+.invoice-list li{
+    list-style: none;
+    float: left;
+    margin-right: 56px;
+}
+.invoice-list li a span{
+    text-align: center;
+    font-family: Bahnschrift-r;
+    font-weight: bold;
+    display: block;
+    font-size: 19px;
+    margin-top: 6px;
+}
+.pdf-img{
+    width: 60px;
+}
+.invoice-list li:first-child{
+    margin-left: 0;
+}
+.next-img{
+    width: 50px;
+    margin-top: 27px;
+}
+.invoice-list{
+    margin-bottom: 40px;
+}
+.paument-type-edit{
+    font-family: CharlevoixPro-M;
+    font-size: 16px;
+    margin-left: 52px;
+    margin-top: 10px;
+    display: block;
+}
+.paument-type-edit span{
+    margin-right: 10px;
+}
+
+.account-info{
+    margin: 0;
+    padding: 0;
+    max-width: 300px;
+    margin-left: 52px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.account-info li{
+    list-style: none;
+    font-family: font-family: sfui-r;
+    font-size: 14px;
+    color: #777777;
+}
+.account-info li p{
+    margin-bottom: 0;
+}
+.bill-pay-method{
+    margin-left: 52px;
+}
+
+.documents li a span{
+    font-weight: normal;
+    font-size: 16px;
+}
+.documents{
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+.upload-doc{
+    background: none;
+    border: 0;
+    font-family: OpenSans-r;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.upload-doc span{
+    color: #263DCC;
+    margin-left: 10px;
+}
+
+.settings-table tr td{
+    border-top: 0;
+    padding-left: 0;
+    padding-top: 0;
+}
+.settings-table{
+    margin-top: 0;
+}
+.settings-table .emp-n-name{
+    font-weight: bold;
+    font-size: 18px;
+}
+.settings-table .emp-email-m{
+    font-size: 12px;
+}
+.settings-table i{
+    font-size: 20px;
+    margin-top: 14px;
+}
+.settings-table{
+    margin-top: 30px;
+}
+.settings-field{
+    margin-top: 30px;
+    max-width: 280px!important;
+}
+
+.settings-field input::placeholder{
+    font-family: BasicSans-r;
+    color: #6a6a6a;
+    font-size: 14px;
+}
+.field-edit{
+    position: relative;
+}
+.field-edit i{
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    color: #000;
+    font-size: 20px;
+}
+.field-edit i:hover{
+    color: #000;
+}
+.settings-field input{
+    padding-right: 35px;
+}
+.settings-save-btn{
+    font-family: OpenSans-r;
+    font-weight: bold;
+    float: right;
+    padding: 5px 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.vertical-bdr{
+    position: relative;
+}
+.vertical-bdr::after{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 1px;
+    height: 100%;
+    background: #707070;
+    content: '';
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  min-height: 100%;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -50px;
+}
+
+.image-uploader{
+    max-width: 250px!important;
+    margin: 0 auto;
+    display: block;
+}
+
+.up-img{
+    float: left;
+    font-size: 19px;
+}
+.up-text{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+.up-plus{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+
+
+#upload{
+    display:none
+}
+
+.ok-confirm{
+    width: 48px;
+}
+.confirm-added{
+    font-family: SEGOEUI-r;
+    font-size: 16px;
+}
+.confirm-added span{
+    margin-left: 5px;
+}
+
+.add-emp-btn-page{
+    float: right;
+    border: 0;
+    font-family: OpenSans-r;
+    font-size: 12px;
+    padding: 7px 20px;
+}
+
+.reveiw-table .benefit-head{
+    margin-left: 0;
+}
+
+.reveiw-table .emp-delete{
+    margin-left: 4px;
+}
+
+.mgr-l-review{
+    margin-left: 15px;
+}
+.step-btn-1{
+    float: right;
+}
+.text-red:hover{
+    text-decoration: none;
+}
+
+
+
+
 
 /*all media*/
+
+
+
+
 @media(max-width: 767px){
     .head-logo {
     max-width: 198px;
@@ -770,7 +1294,7 @@ background-image: linear-gradient(to bottom, #E5E4E4 0%, #C7C7C7 100%);
     }
     .go-srtp-3{
         margin-top: 40px;
-        margin-bottom: 40px;
+        margin-bottom: 0px;
     }
     .sidebar .profile-img{
        margin-left: 0;
@@ -780,6 +1304,7 @@ background-image: linear-gradient(to bottom, #E5E4E4 0%, #C7C7C7 100%);
         display: block;
         margin: 0 auto!important;
         float: none;
+        width: 110px;
     }
     .dashboard-link{
         margin: 0 auto;
@@ -791,7 +1316,36 @@ background-image: linear-gradient(to bottom, #E5E4E4 0%, #C7C7C7 100%);
     .welcome-msg{
         text-align: center;
     }
-    
+    .company-table{
+        margin-bottom: 60px;
+    }
+    .emp-sec{
+    overflow-x: scroll;
+    }
+    .add-emp-m{
+        margin-bottom: 60px;
+    }
+    .vertical-bdr::after{
+        width: 0px;
+    }
+    .settings-field{
+        margin-top: 30px;
+    }
+    .well-done-text {
+    text-align: center;
+    font-size: 17px;
+    line-height: 32px;
+    margin-top: 0;
+    }
+    .step-btn-1{
+        float: none;
+    }
+    .well-done-step {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 22px;
+    padding-bottom: 3px;
+    }
 }
 
 
@@ -807,6 +1361,28 @@ background-image: linear-gradient(to bottom, #E5E4E4 0%, #C7C7C7 100%);
     }
     .checkPayMethod li:first-child{
     margin-left: 30px;
+    }
+    .btm-bdr{
+     display: none;
+    }
+    .invoice-list li {
+    list-style: none;
+    float: left;
+    margin-right: 10px;
+    }
+    .pdf-img {
+    width: 50px;
+    }
+    .next-img {
+
+    width: 27px;
+    margin-top: 16px;
+        margin-left: 10px;
+
+    }
+    .invoice-list li a span {
+    font-size: 14px;
+    margin-top: 6px;
     }
 }
 
@@ -825,6 +1401,12 @@ background-image: linear-gradient(to bottom, #E5E4E4 0%, #C7C7C7 100%);
     margin-left: 30px;
     }
     
+    .btm-bdr{
+    width: 100%;
+    height: 4px;
+    background: #b6b6b6;
+    border-top: 0;
+    }
 }
 
 
