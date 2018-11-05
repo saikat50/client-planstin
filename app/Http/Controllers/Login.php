@@ -39,4 +39,56 @@ class Login extends Controller {
     public function register($type){
         return $this->view('login.'. $type .'.register');
     }
+
+    //from saikat
+
+    public function createProfile(){
+        return $this->view('account.create-profile');
+    }
+    public function companyBenefit(){
+        return $this->view('account.choose-company-benefit');
+    }
+    public function yourServices(){
+        return $this->view('account.your-services');
+    }
+    public function baseHealth(){
+        return $this->view('account.base-health-agree');
+    }
+    public function payrollAgree(){
+        return $this->view('account.payroll-agree');
+    }
+    public function serviceAdded(){
+            return $this->view('account.service-added');
+    }
+    public function addEmployee(){
+            return $this->view('account.add-employees');
+    }
+    public function reviewEmployee(){
+            return $this->view('account.review-employees');
+    }
+    public function wellDone(){
+            return $this->view('account.well-done');
+    }
+    public function dashboard(){
+                return $this->view('account.dashboard');
+    }
+    public function company(){
+                return $this->view('account.company');
+    }
+    public function services(){
+                return $this->view('account.services');
+    }
+    public function employees(){
+                return $this->view('account.employees');
+    }
+    public function billing(){
+            return $this->view('account.billing');
+    }
+    public function documents(){
+            return $this->view('account.documents');
+    }
+    public function settings(){
+            return $this->view('account.settings');
+    }
+
 }
