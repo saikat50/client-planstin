@@ -45,3 +45,25 @@
         });
     });
 </script>
+<script>
+           $(document).ready(function(){
+
+               $('.check').on('ifChecked', function(event){
+              var e = this.getAttribute("id");
+              var d = e + 'e';
+              document.getElementById(d).style.display = "block";
+
+            });
+
+            $('.check').on('ifUnchecked', function(event){
+              var e = this.getAttribute("id");
+              var d = e + 'e';
+              document.getElementById(d).style.display = "none";
+
+            });
+
+
+           })
+
+
+        </script>

@@ -207,6 +207,9 @@ body {
 .navbar-collapse {
     /*! flex-grow: 0!important; */
 }
+.nav-link:hover{
+    color: #5c5c5c;
+}
 /*Login body*/
 .login-container{
     max-width: 771px !important;
@@ -260,8 +263,8 @@ body {
 }
 footer{
     width: 100%;
-    padding-top: 13px;
-    padding-bottom: 16px;
+    padding-top: 16px;
+    padding-bottom: 13px;
 }
 
 
@@ -391,6 +394,7 @@ html, body {
 }
 .b-addr{
     margin-bottom: 40px;
+    margin-top: 40px;
 }
 .mgr-b{
     margin-bottom: 7px;
@@ -401,7 +405,7 @@ html, body {
     
 }
 .rdo1{
-    margin-top: 0px;
+    margin-top: 6px;
     margin-right: 5px;
 }
 .rdo1 span{
@@ -1241,6 +1245,109 @@ html, body {
     text-decoration: none;
 }
 
+.pay-method{
+    margin: 0;
+    padding: 0;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+
+.pay-method li{
+    list-style: none;
+}
+
+.img-check{
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+.data-input-label2{
+    font-family: sfui-r;
+    font-size: 14px;
+}
+.mgr-t{
+    margin-top: 73px;
+    text-align: center;
+    display: block;
+}
+.payMetod2{
+    margin-top: 30px;
+}
+.autoPay{
+    margin-top: 30px;
+}
+
+.questin-ans{
+    font-family: sfui-r;
+    font-size: 12px;
+    background: 0;
+    border: 0;
+    cursor: pointer;
+    margin-top: 40px;
+    
+}
+.questin-ans span{
+    margin-left: 5px;
+}
+.payee-info{
+    font-family: sfui-r;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.gender-select .gender{
+    margin-left: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.mgr-r-2{
+    margin-right: 15px;
+}
+.gender-select input{
+    display: block;
+}
+
+#upload_link{
+    max-width: 100px!important;
+    display: inline!important;
+}
+#Invoicee  input{
+    max-width: 400px;
+    display: inline;
+}
+#Invoicee label{
+    display: inline;
+    margin-right: 20px;
+    font-size: 16px;
+}
+#Invoicee .form-group{
+    margin-top: 30px;
+}
+#Invoicee h4{
+    margin-top: 30px;
+    font-size: 16px;
+}
+#checkse h3{
+    font-family: SEGOEUI-r;
+    font-size: 28px;
+    max-width: 600px;
+}
+
+.payMethod-drop li{
+    display: none;
+}
+
+
+
+
+
+
+
 
 
 
@@ -1346,8 +1453,15 @@ html, body {
     padding-top: 22px;
     padding-bottom: 3px;
     }
-    .b-addr{
-    margin-top: 50px;
+    .mgr-t {
+    margin-top: 7px;
+    }
+    .questin-ans {
+     margin-top: -14px;
+
+    }
+    .btn-save {
+       margin-right: 15px;
     }
 }
 
@@ -1409,6 +1523,9 @@ html, body {
     height: 4px;
     background: #b6b6b6;
     border-top: 0;
+    }
+    .img-check{
+         max-width: 415px;
     }
 }
 
