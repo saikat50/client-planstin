@@ -1,13 +1,12 @@
 <?php
+namespace App\Services\SalesForce\ApiCall;
+
 /**
  * File: AddClientApiCall.php
  * planstin
  * Author: Layton Everson <layton.everson@gmail.com>
  * YourWeb Solutions
  */
-
-namespace App\Services\SalesForce\ApiCall;
-
 
 use AbstractSalesForceApiCall;
 

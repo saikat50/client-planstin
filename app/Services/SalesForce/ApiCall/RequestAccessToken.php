@@ -1,16 +1,15 @@
 <?php
+namespace App\Services\SalesForce\ApiCall;
+
+use App\Services\SalesForce\Dto\RequestAccessTokenDto;
+use App\Services\SalesForce\SalesForceTokenService;
+
 /**
  * File: RequestAccessToken.php
  * planstin
  * Author: Layton Everson <layton.everson@gmail.com>
  * YourWeb Solutions
  */
-
-namespace App\Services\SalesForce\ApiCall;
-
-use AbstractSalesForceApiCall;
-use App\Services\SalesForce\Dto\RequestAccessTokenDto;
-use App\Services\SalesForce\SalesForceTokenService;
 
 class RequestAccessToken extends AbstractSalesForceApiCall
 {
